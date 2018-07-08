@@ -13,7 +13,8 @@ let conf = {
                 test: /\.(js|jsx)$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015', 'es2016', 'es2017', 'latest', 'react']
+                    presets: ['es2015', 'es2016', 'es2017', 'latest', 'react'],
+                    plugins: ["transform-object-rest-spread"]
                 }
                 //exclude: '/node_modules/'
             },
