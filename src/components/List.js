@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchPosts } from '../actions.js';
+import { subscribeFirebaseAction } from '../middleware/subscribeFirebase';
 
 class List extends React.Component {
 
   componentDidMount() {
     this.props.handleFetchPosts();
+    this.props.subscribeToFirebase('posts', 'UPDATE_POSTS');
   }
 
   render() {
@@ -39,6 +41,7 @@ export default connect(
     error: store.error
   }),
   dispatch => ({
-    handleFetchPosts: () => dispatch(fetchPosts())
+    handleFetchPosts: () => dispatch(fetchPosts()),
+    subscribeToFirebase: (database, callType) => dispatch(subscribeFirebaseAction(database, callType))
   })
 )(List);

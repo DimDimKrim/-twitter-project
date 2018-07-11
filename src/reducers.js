@@ -14,8 +14,13 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-  console.log({state, action});
+
   switch (action.type) {
+    case 'UPDATE_POSTS':
+      return {
+        ...state,
+        list: [...action.payload]
+      }
     case FETCH_POSTS_START:
       return {
         ...state,
