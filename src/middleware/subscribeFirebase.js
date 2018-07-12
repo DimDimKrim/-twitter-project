@@ -8,15 +8,11 @@ const subscribeFirebase = store => next => action => {
   }
 
   const { database, callType } = action;
-  const databaseConnect = databaseInstants.ref('posts/gNR3f0QVCNQCoClLEaXm');
-
-  console.log('MIDDLEWARE', action);
-  console.log({databaseConnect});
+  const databaseConnect = databaseInstants.ref(database);
 
   databaseConnect.on('value', snapshot => {
-    let items = snapshot.val();
-    console.log('ON', {items});
-
+    const items = snapshot.val();
+    
     store.dispatch({
       type: callType,
       payload: items

@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducers from './reducers.js';
 
 import subscribeFirebase from './middleware/subscribeFirebase';
+import updateFirebase from './middleware/updateFirebase';
 
 const initialStore = localStorage['posts']
   ? JSON.parse(localStorage['posts'])
@@ -17,7 +18,7 @@ const initialStore = localStorage['posts']
 const store = createStore(
   reducers,
   initialStore,
-  composeWithDevTools(applyMiddleware(subscribeFirebase, thunk))
+  composeWithDevTools(applyMiddleware(subscribeFirebase, updateFirebase, thunk))
 );
 
 store.subscribe(() => {

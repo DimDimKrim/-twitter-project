@@ -1,10 +1,10 @@
 const config = {
-  apiKey: "AIzaSyDZD_wt0bdNChr5oucHZOffBpl5KPO_x7M",
-  authDomain: "twi-project-a962f.firebaseapp.com",
-  databaseURL: "https://twi-project-a962f.firebaseio.com",
-  projectId: "twi-project-a962f",
-  storageBucket: "twi-project-a962f.appspot.com",
-  messagingSenderId: "911638255441"
+  apiKey: "AIzaSyBVwmohAvtiQe3r0e_cJWEIbfrvM5gSoSg",
+    authDomain: "project-name-8584e.firebaseapp.com",
+    databaseURL: "https://project-name-8584e.firebaseio.com",
+    projectId: "project-name-8584e",
+    storageBucket: "",
+    messagingSenderId: "187198125059"
 };
 
 //firebase.initializeApp(config);

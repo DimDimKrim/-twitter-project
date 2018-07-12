@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import 'bootstrap';
 
-import { addPost } from '../actions.js'
+import { updateFirebaseAction } from '../middleware/updateFirebase'
+//import { addPost } from '../actions.js'
 
 class Add extends React.Component {
 
@@ -21,19 +22,19 @@ class Add extends React.Component {
       value: e.target.value
     })
   }
-
+  
   onAdd(event) {
     event.preventDefault();
 
     const newPost = {
-      id: +new Date(),
+      //id: +new Date(),
       content: this.state.value,
     }
 
-    this.props.handleAdd(newPost);
-    this.setState({value: ""});
+    this.props.handleUpdateFirebase(newPost);
+    this.setState({ value: "" });
   }
-
+  
   render() {
     return (
       <form onSubmit={this.onAdd}>
@@ -55,6 +56,8 @@ class Add extends React.Component {
 export default connect(
   null,
   dispatch => ({
-    handleAdd: post => dispatch(addPost(post))
+    //handleAdd: post => dispatch(addPost(post))
+    handleUpdateFirebase: (post) => dispatch(updateFirebaseAction('test', post))
   })
+  
 )(Add);

@@ -19,41 +19,44 @@ export default (state = defaultState, action) => {
     case 'UPDATE_POSTS':
       return {
         ...state,
-        list: [...action.payload]
+        list: Object.keys(action.payload || {}).map(key => ({
+          id: key,
+          content: action.payload[key].content
+        })).sort((a, b) => a.id > b.id ? 1 : -1)
       }
-    case FETCH_POSTS_START:
-      return {
-        ...state,
-        isLoading: true
-      }
-    case FETCH_POSTS_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-        isLoading: false
-      }
-    case FETCH_POSTS_SUCCESS:
-      return {
-        ...state,
-        list: [...state.list, ...action.payload],
-        isLoading: false,
-      }
+          // case FETCH_POSTS_START:
+          //   return {
+          //     ...state,
+          //     isLoading: true
+          //   }
+          // case FETCH_POSTS_FAILURE:
+          //   return {
+          //     ...state,
+          //     error: action.payload,
+          //     isLoading: false
+          //   }
+          // case FETCH_POSTS_SUCCESS:
+          //   return {
+          //     ...state,
+          //     list: [...state.list, ...action.payload],
+          //     isLoading: false,
+          //   }
     case ADD_POST:
       return {
         ...state,
         list: [action.payload, ...state.list]
       };
     case REMOVE_POST:
-    return {
-      ...state,
-      list: state.list.filter(post => post.id !== action.payload)
-    };
+     return {
+       ...state,
+       list: state.list.filter(post => post.id !== action.payload)
+     };
       return
     case EDIT_POST:
-    return {
-      ...state,
-      list: state.list.map(post => post.id === action.payload.id ? action.payload : post)
-    };
+     return {
+       ...state,
+       list: state.list.map(post => post.id === action.payload.id ? action.payload : post)
+     };
     default:
       return state;
   }
