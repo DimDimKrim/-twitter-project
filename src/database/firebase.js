@@ -1,4 +1,5 @@
 import firebaseApp from 'firebase/app';
+import 'firebase/auth';
 
 import config from '../constants/firebase';
 
@@ -11,3 +12,7 @@ export default () => {
 
   return instants;
 };
+
+
+const auth = firebaseApp.auth();
+console.log({auth});

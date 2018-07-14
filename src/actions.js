@@ -1,3 +1,8 @@
+// import firebaseApp from './database/firebase.js'
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
+
+
 export const ADD_POST = 'ADD_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 export const EDIT_POST = 'EDIT_POST';
@@ -51,3 +56,19 @@ export const fetchPosts = () => (dispatch) => {
     })
     .catch((err) => dispatch(fetchPostsFailure(err)));
 }
+
+// const auth = firebase.auth(firebaseApp);
+// console.log('>>>', {firebaseApp, auth});
+//
+//
+// export const authFirebase = (user) => (dispatch) => {
+//   console.log('>>>', {firebaseApp});
+//
+//   auth.createUserWithEmailAndPassword(user.username, user.password)
+//     .then((authData) => {
+//         console.log("User created successfully with payload-", authData);
+//         //Write code to use authData to add to Users
+//     }).catch((_error) => {
+//         console.log("Login Failed!", _error);
+//     })
+// }
