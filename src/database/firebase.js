@@ -12,7 +12,3 @@ export default () => {
 
   return instants;
 };
-
-
-const auth = firebaseApp.auth();
-console.log({auth});

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
 
 import Home from './components/Home.js';
 import Login from './components/Login.js';
+import Signup from './components/Signup.js';
 
 import store  from './store.js';
 
@@ -18,6 +19,9 @@ export default function () {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/signup">
+              <Signup />
             </Route>
           </Switch>
         </BrowserRouter>

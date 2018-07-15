@@ -4,13 +4,17 @@ import {
   EDIT_POST,
   FETCH_POSTS_START,
   FETCH_POSTS_FAILURE,
-  FETCH_POSTS_SUCCESS
+  FETCH_POSTS_SUCCESS,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
+  LOG_OUT_SUCCESS
 } from './actions.js';
 
 const defaultState = {
   isLoading: false,
   error: null,
-  list: []
+  list: [],
+  user: null
 };
 
 export default (state = defaultState, action) => {
@@ -57,6 +61,16 @@ export default (state = defaultState, action) => {
        ...state,
        list: state.list.map(post => post.id === action.payload.id ? action.payload : post)
      };
+     case LOG_IN_SUCCESS:
+       return {
+         ...state,
+         user: action.payload
+       }
+     case LOG_OUT_SUCCESS:
+       return {
+         ...state,
+         user: null
+       }
     default:
       return state;
   }

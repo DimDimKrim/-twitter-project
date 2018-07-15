@@ -1,7 +1,5 @@
-// import firebaseApp from './database/firebase.js'
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
-
+import firebaseInit from './database/firebase.js'
+const auth = firebaseInit().auth();
 
 export const ADD_POST = 'ADD_POST';
 export const REMOVE_POST = 'REMOVE_POST';
@@ -9,6 +7,9 @@ export const EDIT_POST = 'EDIT_POST';
 export const FETCH_POSTS_START = 'FETCH_POSTS_START';
 export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
+export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 
 export const fetchPostsStart = {
   type: FETCH_POSTS_START
@@ -57,18 +58,48 @@ export const fetchPosts = () => (dispatch) => {
     .catch((err) => dispatch(fetchPostsFailure(err)));
 }
 
-// const auth = firebase.auth(firebaseApp);
-// console.log('>>>', {firebaseApp, auth});
-//
-//
-// export const authFirebase = (user) => (dispatch) => {
-//   console.log('>>>', {firebaseApp});
-//
-//   auth.createUserWithEmailAndPassword(user.username, user.password)
-//     .then((authData) => {
-//         console.log("User created successfully with payload-", authData);
-//         //Write code to use authData to add to Users
-//     }).catch((_error) => {
-//         console.log("Login Failed!", _error);
-//     })
-// }
+export const logInSuccess = user => ({
+  type: LOG_IN_SUCCESS,
+  payload: user
+});
+
+export const logInFailure = err => ({
+  type: LOG_IN_SUCCESS,
+  payload: err
+});
+
+export const logOutSuccess = user => ({
+  type: LOG_OUT_SUCCESS,
+});
+
+
+export const logoutFirebase = () => (dispatch) => {
+  auth.signOut().then((info) => {
+    console.log(info);
+    dispatch({
+      type: 'LOG_OUT_SUCCESS'
+    })
+  }).catch((error) => {
+    console.log(error);
+  });
+}
+
+export const authFirebase = (user) => (dispatch) => {
+  auth.createUserWithEmailAndPassword(user.username, user.password)
+    .then((authData) => {
+        console.log("User created successfully with payload: ", authData);
+        dispatch(logInSuccess(authData));
+    }).catch((_error) => {
+        console.log("Login Failed!", _error);
+    })
+}
+
+export const loginFirebase = (user) => (dispatch) => {
+  auth.signInWithEmailAndPassword(user.username, user.password)
+    .then((authData) => {
+        console.log("User created successfully with payload: ", authData);
+        dispatch(logInSuccess(authData));
+    }).catch((_error) => {
+        console.log("Login Failed!", _error);
+    })
+}

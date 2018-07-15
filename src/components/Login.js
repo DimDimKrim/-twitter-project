@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom"
+import { Redirect } from 'react-router'
 
-import { authFirebase } from '../actions.js'
+import { loginFirebase } from "../actions.js";
 
 class Add extends React.Component {
   constructor() {
     super();
-    this.state = {
-
-    };
+    this.state = {};
     this.onLogin = this.onLogin.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -22,21 +22,26 @@ class Add extends React.Component {
   onLogin(e) {
     e.preventDefault();
 
-    const {username, password} = this.state;
-    console.log({username, password});
-    this.props.handleLogin({username, password});
+    const { username, password } = this.state;
+    console.log({ username, password });
+    this.props.handleLogin({ username, password });
   }
 
   render() {
     if (this.props.user) {
-      return "Logined / Redirect";
+      return <Redirect to="/"/>;
     }
 
     return (
       <form onSubmit={this.onLogin}>
         <input name="username" onChange={this.onChange} />
         <input name="password" onChange={this.onChange} />
-        <button type="submit">Log in</button>
+        <button type="submit">Войти</button>
+        <button type="button">
+          <Link class="btn btn-link" to="/signup">
+            Регистрация
+          </Link>
+        </button>
       </form>
     );
   }
@@ -47,6 +52,6 @@ export default connect(
     user: store.user
   }),
   dispatch => ({
-    handleLogin: user => dispatch(authFirebase(user))
+    handleLogin: user => dispatch(loginFirebase(user))
   })
 )(Add);

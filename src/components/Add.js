@@ -4,7 +4,7 @@ import "bootstrap";
 import { Link } from "react-router-dom"
 
 import { updateFirebaseAction } from "../middleware/updateFirebase";
-//import { addPost } from '../actions.js'
+import { logoutFirebase } from '../actions.js'
 
 class Add extends React.Component {
   constructor() {
@@ -15,6 +15,12 @@ class Add extends React.Component {
 
     this.onAdd = this.onAdd.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onLogOut = this.onLogOut.bind(this);
+  }
+
+  onLogOut(event) {
+    event.preventDefault();
+    this.props.handleLogOut();
   }
 
   onChange(e) {
@@ -50,9 +56,19 @@ class Add extends React.Component {
             Меню
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <Link class="dropdown-item" to="/login">
-              Войти
-            </Link>
+          {
+            this.props.user
+            ? (
+              <button class="dropdown-item" type="button" onClick={this.onLogOut}>
+                Выйти
+              </button>
+            )
+            : (
+              <Link class="dropdown-item" to="/login">
+                Войти
+              </Link>
+            )
+          }
           </div>
         </div>
         <form onSubmit={this.onAdd}>
@@ -68,9 +84,12 @@ class Add extends React.Component {
 }
 
 export default connect(
-  null,
+  state => ({
+    user: state.user
+  }),
   dispatch => ({
     //handleAdd: post => dispatch(addPost(post))
-    handleUpdateFirebase: post => dispatch(updateFirebaseAction("test", post))
+    handleUpdateFirebase: post => dispatch(updateFirebaseAction("test", post)),
+    handleLogOut: post => dispatch(logoutFirebase())
   })
 )(Add);
